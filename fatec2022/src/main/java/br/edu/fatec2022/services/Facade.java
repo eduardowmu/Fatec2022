@@ -7,7 +7,11 @@ import java.util.Map;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.edu.fatec2022.entity.EntityDomain;
+import br.edu.fatec2022.strategy.CreateEmail;
+import br.edu.fatec2022.strategy.CreateEnroll;
 import br.edu.fatec2022.strategy.Rule;
+import br.edu.fatec2022.strategy.ValidateDates;
+import br.edu.fatec2022.strategy.ValidateName;
 
 public class Facade implements IFacade {
 
@@ -18,7 +22,14 @@ public class Facade implements IFacade {
 		this.daos = new HashMap<>();
 		this.rules = new HashMap<>();
 		
-		//rules for Student
+		
+		
+		//rules for Create Student
+		ValidateName vn = new ValidateName();
+		ValidateDates vd = new ValidateDates();
+		CreateEnroll ce = new CreateEnroll();
+		CreateEmail cEmail = new CreateEmail();
+		
 		
 	}
 	
