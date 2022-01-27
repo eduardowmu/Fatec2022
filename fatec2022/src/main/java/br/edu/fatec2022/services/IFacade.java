@@ -11,5 +11,5 @@ public interface IFacade {
 	EntityDomain save(EntityDomain ed);
 	List<EntityDomain> findAll();
 	EntityDomain update(EntityDomain ed);
-	void delete(Long id);
+	void delete(EntityDomain ed);
 }
