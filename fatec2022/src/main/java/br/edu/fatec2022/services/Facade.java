@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.edu.fatec2022.entity.EntityDomain;
+import br.edu.fatec2022.entity.Message;
+import br.edu.fatec2022.entity.Student;
 import br.edu.fatec2022.repository.StudentDao;
 import br.edu.fatec2022.strategy.CreateEmail;
 import br.edu.fatec2022.strategy.CreateEnroll;
@@ -29,7 +31,7 @@ public class Facade implements IFacade {
 		this.rules = new HashMap<>();
 		
 		//creating Maps to call repositories
-		this.daos.put(ParametersUtils.STUDENT, studentDao);
+		this.daos.put(Student.class.getName(), studentDao);
 		
 		//Validations rules for Create Student
 		ValidateName vn = new ValidateName();
@@ -51,7 +53,25 @@ public class Facade implements IFacade {
 		//Creating Maps for each events about students
 		Map<String, List<Rule>> studentRules = new HashMap<>();
 		studentRules.put(ParametersUtils.SAVE, brCreateStudent);
+		studentRules.put(ParametersUtils.LIST, brListStudent);
 		
+		//Finally we complete a Map with rules of all Entities and events
+		this.rules.put(ParametersUtils.STUDENT, studentRules);
+	}
+	
+	private EntityDomain getEntityFromRules(EntityDomain ed, String event) {
+		Map<String, List<Rule>> operationRules = this.rules.get(ed.getClass().getName());
+		if(operationRules != null) {
+			List<Rule> rulesList = operationRules.get(event);
+			if(rulesList != null) {
+				for(Rule rule : rulesList) {
+					if(rule.process(ed) instanceof Message) {
+						return (Message)ed;
+					}
+				}
+			}
+		}
+		return null;
 	}
 	
 	@Override
