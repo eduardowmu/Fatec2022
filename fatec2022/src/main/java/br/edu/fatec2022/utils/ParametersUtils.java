@@ -2,10 +2,12 @@ package br.edu.fatec2022.utils;
 
 public class ParametersUtils {
 	public static final String EMAIL = "@fatec.sp.gov.br";
-	//atributos estaticos
+	//atributos estaticos de eventos
 	public static final String SAVE = "save";
 	public static final String LIST = "list";
 	public static final String UPDATE = "update";
 	public static final String DELETE = "delete";
+	
+	//atributos estaticos de entidades
 	public static final String STUDENT = "student";
 }

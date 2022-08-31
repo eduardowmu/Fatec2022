@@ -18,16 +18,16 @@ import br.edu.fatec2022.command.Delete;
 import br.edu.fatec2022.command.ListAll;
 import br.edu.fatec2022.command.Save;
 import br.edu.fatec2022.command.Update;
-import br.edu.fatec2022.entity.Student;
+import br.edu.fatec2022.dto.Dto;
 import br.edu.fatec2022.utils.ParametersUtils;
 
 @RestController
-@RequestMapping("/student")
-public class StudentController {
+@RequestMapping("/fatec")
+public class AplicationController {
 	private Map<String, Command> commands;
 	
 	@Autowired
-	public StudentController() {
+	public AplicationController() {
 		this.commands = new HashMap<>();
 		this.commands.put(ParametersUtils.SAVE, new Save());
 		this.commands.put(ParametersUtils.LIST, new ListAll());
@@ -35,13 +35,14 @@ public class StudentController {
 		this.commands.put(ParametersUtils.DELETE, new Delete());
 	}
 	
-	@PostMapping("/save")
-	public ResponseEntity<Student> create(@RequestBody Student student) {
-		return ResponseEntity.ok((Student)this.commands.get(ParametersUtils.SAVE).execute(student));
+	@PostMapping("/{entity}/save")
+	public ResponseEntity<Dto> create(@PathVariable("entity") String entity, @RequestBody Dto entityDomain) {
+		
+		return null;
 	}
 	
-	@GetMapping("/list")
-	public ResponseEntity<List<Student>> listAll() {
-		return ResponseEntity.ok((List<Student>)this.commands.get(ParametersUtils.LIST).execute(null));
+	@GetMapping("/{entity}/list")
+	public ResponseEntity<List<Dto>> listAll(@PathVariable("entity") String entity) {
+		return null;
 	}
 }

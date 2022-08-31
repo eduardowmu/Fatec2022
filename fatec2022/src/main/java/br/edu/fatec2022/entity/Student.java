@@ -10,6 +10,8 @@ import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import br.edu.fatec2022.dto.Dto;
+import br.edu.fatec2022.dto.StudentDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,16 +31,27 @@ public class Student extends EntityDomain {
 	private String firstName;
 	private String mediumName;
 	private String lastName;
-	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Column(nullable=false)
 	private LocalDate birthDate;
-	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Column(nullable=false)
 	private LocalDate startDate;
-	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Column(nullable=true)
 	private LocalDate endDate;
 	private String enrollNumber;
 	private Integer position;
 	private String email;
+	
+	@Override
+	public Dto toDto() {
+		return StudentDto.builder()
+				.firstName(this.getFirstName())
+				.mediumName(this.getMediumName())
+				.lastName(this.getLastName())
+				.birthDate(String.format("dd/MM/yyyy", this.getBirthDate()))
+				.startDate(String.format("dd/MM/yyyy", this.getStartDate()))
+				.endDate(String.format("dd/MM/yyyy", this.getEndDate()))
+				.position(this.getPosition())
+				.email(this.getEmail())
+				.build();
+	}
 }
