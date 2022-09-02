@@ -20,7 +20,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity(name="messages")
-public class Message extends EntityDomain {
+public class Message implements EntityDomain {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

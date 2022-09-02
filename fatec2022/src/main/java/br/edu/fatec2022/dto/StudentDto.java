@@ -23,7 +23,7 @@ public class StudentDto implements Dto {
 	private String email;
 
 	@Override
-	public EntityDomain toEntity() {
+	public Student toEntity() {
 		return Student.builder()
 				.firstName(this.getFirstName())
 				.mediumName(this.getMediumName())

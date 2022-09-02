@@ -23,7 +23,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity(name="students")
-public class Student extends EntityDomain {
+public class Student implements EntityDomain {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +42,7 @@ public class Student extends EntityDomain {
 	private String email;
 	
 	@Override
-	public Dto toDto() {
+	public StudentDto toDto() {
 		return StudentDto.builder()
 				.firstName(this.getFirstName())
 				.mediumName(this.getMediumName())
