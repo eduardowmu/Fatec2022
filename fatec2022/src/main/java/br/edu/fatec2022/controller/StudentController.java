@@ -19,18 +19,16 @@ import br.edu.fatec2022.command.ListAll;
 import br.edu.fatec2022.command.Save;
 import br.edu.fatec2022.command.Update;
 import br.edu.fatec2022.dto.Dto;
+import br.edu.fatec2022.dto.StudentDto;
+import br.edu.fatec2022.entity.Student;
 import br.edu.fatec2022.utils.ParametersUtils;
-import br.edu.fatec2022.vh.StudentVh;
-import br.edu.fatec2022.vh.ViewHelper;
 
 @RestController
-@RequestMapping("/fatec")
-public class AplicationController {
+@RequestMapping("/student")
+public class StudentController {
 	private Map<String, Command> commands;
-	@Autowired
-	private ViewHelper vh;
 	
-	public AplicationController() {
+	public StudentController() {
 		this.commands = new HashMap<>();
 		this.commands.put(ParametersUtils.SAVE, new Save());
 		this.commands.put(ParametersUtils.LIST, new ListAll());
@@ -38,27 +36,14 @@ public class AplicationController {
 		this.commands.put(ParametersUtils.DELETE, new Delete());
 	}
 	
-	@PostMapping("/{entity}/save")
-	public ResponseEntity<Dto> create(@PathVariable("entity") String entity, 
-									  @RequestBody Dto body) {
-		var vh = this.getViewType(entity);
-		var request = vh.requestEntity(body);
-		var response = this.commands.get(ParametersUtils.SAVE).execute(request);
-		return null;
+	@PostMapping("/save")
+	public ResponseEntity<StudentDto> create(@RequestBody StudentDto studentDto) {
+		var student = (Student)this.commands.get(ParametersUtils.SAVE).execute(studentDto.toEntity());
+		return ResponseEntity.ok().body(student.toDto());
 	}
 	
-	@GetMapping("/{entity}/list")
+	@GetMapping("/list")
 	public ResponseEntity<List<Dto>> listAll(@PathVariable("entity") String entity) {
 		return null;
-	}
-	
-	private ViewHelper getViewType(String entity) {
-		switch(entity) {
-			case ParametersUtils.STUDENT:
-				return new StudentVh();
-			
-			default: 
-				return null;
-		}
 	}
 }

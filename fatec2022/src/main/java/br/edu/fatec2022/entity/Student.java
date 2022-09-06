@@ -1,29 +1,22 @@
 package br.edu.fatec2022.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 
-import br.edu.fatec2022.dto.Dto;
 import br.edu.fatec2022.dto.StudentDto;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Setter
 @Getter
 @Entity(name="students")
-public class Student implements EntityDomain {
+public class Student extends EntityDomain {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,12 +24,9 @@ public class Student implements EntityDomain {
 	private String firstName;
 	private String mediumName;
 	private String lastName;
-	@Column(nullable=false)
-	private LocalDate birthDate;
-	@Column(nullable=false)
-	private LocalDate startDate;
-	@Column(nullable=true)
-	private LocalDate endDate;
+	private LocalDateTime birthDate;
+	private LocalDateTime startDate;
+	private LocalDateTime endDate;
 	private String enrollNumber;
 	private Integer position;
 	private String email;
@@ -47,9 +37,9 @@ public class Student implements EntityDomain {
 				.firstName(this.getFirstName())
 				.mediumName(this.getMediumName())
 				.lastName(this.getLastName())
-				.birthDate(String.format("dd/MM/yyyy", this.getBirthDate()))
-				.startDate(String.format("dd/MM/yyyy", this.getStartDate()))
-				.endDate(String.format("dd/MM/yyyy", this.getEndDate()))
+				.birthDate(String.valueOf(this.getBirthDate()))
+				.startDate(String.valueOf(this.getStartDate()))
+				.endDate(String.valueOf(this.getEndDate()))
 				.position(this.getPosition())
 				.email(this.getEmail())
 				.build();

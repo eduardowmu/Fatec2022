@@ -1,5 +1,7 @@
 package br.edu.fatec2022;
 
+import java.time.LocalDate;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

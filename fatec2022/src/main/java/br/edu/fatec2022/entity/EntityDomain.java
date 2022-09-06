@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import br.edu.fatec2022.dto.Dto;
 
-public interface EntityDomain extends Serializable {
+public abstract class EntityDomain implements Serializable {
 	static final long serialVersionUID = 1L;
 	public abstract Dto toDto();
 }

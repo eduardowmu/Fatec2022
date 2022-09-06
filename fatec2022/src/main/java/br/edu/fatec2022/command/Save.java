@@ -16,6 +16,6 @@ public class Save implements Command {
 
 	@Override
 	public EntityDomain execute(EntityDomain ed) {
-		return this.facade.save(ed);
+		return ed;//this.facade.save(ed);
 	}
 }
