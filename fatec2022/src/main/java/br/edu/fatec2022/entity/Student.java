@@ -1,13 +1,11 @@
 package br.edu.fatec2022.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-
 import br.edu.fatec2022.dto.StudentDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,9 +22,9 @@ public class Student extends EntityDomain {
 	private String firstName;
 	private String mediumName;
 	private String lastName;
-	private LocalDateTime birthDate;
-	private LocalDateTime startDate;
-	private LocalDateTime endDate;
+	private LocalDate birthDate;
+	private LocalDate startDate;
+	private LocalDate endDate;
 	private String enrollNumber;
 	private Integer position;
 	private String email;
@@ -39,7 +37,7 @@ public class Student extends EntityDomain {
 				.lastName(this.getLastName())
 				.birthDate(String.valueOf(this.getBirthDate()))
 				.startDate(String.valueOf(this.getStartDate()))
-				.endDate(String.valueOf(this.getEndDate()))
+				.endDate(String.valueOf(this.getEndDate() != null ? this.getEndDate() : null))
 				.position(this.getPosition())
 				.email(this.getEmail())
 				.build();

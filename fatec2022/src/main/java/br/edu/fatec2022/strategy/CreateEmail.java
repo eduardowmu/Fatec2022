@@ -6,7 +6,7 @@ import br.edu.fatec2022.utils.ParametersUtils;
 
 public class CreateEmail implements Rule {
 	@Override
-	public Object process(EntityDomain ed) {
+	public EntityDomain process(EntityDomain ed) {
 		var student = (Student)ed;
 		student.setEmail(this.setStudentEmail(student));
 		return student;

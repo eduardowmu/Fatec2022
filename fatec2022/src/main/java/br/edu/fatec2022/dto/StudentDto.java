@@ -1,13 +1,12 @@
 package br.edu.fatec2022.dto;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
-import br.edu.fatec2022.entity.EntityDomain;
 import br.edu.fatec2022.entity.Student;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 @Builder
 @Setter
@@ -30,16 +29,19 @@ public class StudentDto implements Dto {
 				.firstName(this.firstName)
 				.mediumName(this.mediumName)
 				.lastName(this.lastName)
-				.birthDate(this.getDate(this.birthDate))
-				.startDate(this.getDate(this.startDate))
-				.endDate(this.getDate(this.endDate))
+				.birthDate(this.getDate(this.getBirthDate()))
+				.startDate(this.getDate(this.getStartDate()))
+				.endDate(this.endDate != null ? this.getDate(this.getEndDate()) : null)
 				.enrollNumber(this.getEnrollNumber() != null ? this.getEnrollNumber() : null)
 				.position(this.getPosition())
 				.email(this.getEmail())
 				.build();
 	}
 	
-	private LocalDateTime getDate(String date) {
-		return LocalDateTime.parse(date);
+	private LocalDate getDate(String date) {
+		int year = Integer.parseInt(date.substring(0, 4));
+		int month = Integer.parseInt(date.substring(5, 7));
+		int day = Integer.parseInt(date.substring(8));
+		return LocalDate.of(year, month, day);
 	}
 }

@@ -5,7 +5,7 @@ import br.edu.fatec2022.entity.Student;
 
 public class CreateEnroll implements Rule {
 	@Override
-	public Object process(EntityDomain ed) {
+	public EntityDomain process(EntityDomain ed) {
 		var student = (Student)ed;
 		student.setEnrollNumber(this.setCurseCode(student));
 		return student;
