@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import br.edu.fatec2022.entity.EntityDomain;
 import br.edu.fatec2022.entity.Message;
 import br.edu.fatec2022.entity.Student;
+import br.edu.fatec2022.utils.MessageUtils;
 
 public class ValidateName implements Rule {
 	@Override
@@ -12,13 +13,13 @@ public class ValidateName implements Rule {
 		var student = (Student)ed;
 		if(student.getFirstName().isBlank()) {
 			return Message.builder()
-					.value("First name not valid")
+					.value(MessageUtils.FIRST_NAME_NOT_VALID)
 					.eventDate(LocalDate.now())
 					.build();
 		}
 		if(student.getLastName().isBlank()) {
 			return Message.builder()
-					.value("Last name not valid")
+					.value(MessageUtils.LAST_NAME_NOT_VALID)
 					.eventDate(LocalDate.now())
 					.build();
 		}

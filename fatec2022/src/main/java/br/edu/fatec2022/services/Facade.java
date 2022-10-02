@@ -1,5 +1,6 @@
 package br.edu.fatec2022.services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,20 +12,26 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import br.edu.fatec2022.entity.EntityDomain;
 import br.edu.fatec2022.entity.Message;
 import br.edu.fatec2022.entity.Student;
+import br.edu.fatec2022.repository.MessageDao;
 import br.edu.fatec2022.repository.StudentDao;
 import br.edu.fatec2022.strategy.CreateEmail;
 import br.edu.fatec2022.strategy.CreateEnroll;
 import br.edu.fatec2022.strategy.Rule;
 import br.edu.fatec2022.strategy.ValidateDates;
 import br.edu.fatec2022.strategy.ValidateName;
+import br.edu.fatec2022.utils.MessageUtils;
 import br.edu.fatec2022.utils.ParametersUtils;
 
 public class Facade implements IFacade {
 
 	private Map<String, JpaRepository> daos;
 	private Map<String, Map<String, List<Rule>>> rules;
+	
 	@Autowired
 	private StudentDao studentDao;
+	
+	@Autowired
+	private MessageDao messageDao;
 	
 	public Facade() {
 		this.daos = new HashMap<>();
@@ -32,6 +39,7 @@ public class Facade implements IFacade {
 		
 		//creating Maps to call repositories
 		this.daos.put(Student.class.getName(), studentDao);
+		this.daos.put(Message.class.getName(), messageDao);
 		
 		//Validations rules for Create Student
 		ValidateName vn = new ValidateName();
@@ -56,7 +64,7 @@ public class Facade implements IFacade {
 		studentRules.put(ParametersUtils.LIST, brListStudent);
 		
 		//Finally we complete a Map with rules of all Entities and events
-		this.rules.put(ParametersUtils.STUDENT, studentRules);
+		this.rules.put(Student.class.getName(), studentRules);
 	}
 	
 	private EntityDomain getEntityFromRules(EntityDomain ed, String event) {
@@ -71,17 +79,28 @@ public class Facade implements IFacade {
 				}
 			}
 		}
-		return null;
+		return ed;
 	}
 	
 	@Override
 	public EntityDomain save(EntityDomain ed) {
-		return null;
+		var response = this.getEntityFromRules(ed, ParametersUtils.SAVE);
+		return (EntityDomain)this.daos.get(response.getClass().getName()).save(response);
 	}
 
 	@Override
-	public List<EntityDomain> findAll() {
-		return null;
+	public List<EntityDomain> findAll(String entity) {
+		List<EntityDomain> list = this.daos.get(entity).findAll();
+		if(list != null && list.size() > 0) {
+			return list;
+		} else {
+			list = new ArrayList<>();
+			list.add(Message.builder()
+					.value(MessageUtils.NOT_FOUND_ANY_OBJECT)
+					.eventDate(LocalDate.now())
+					.build());
+			return list;
+		}
 	}
 
 	@Override

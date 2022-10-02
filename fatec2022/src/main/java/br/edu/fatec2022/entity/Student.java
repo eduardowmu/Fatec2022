@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import br.edu.fatec2022.dto.StudentDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,18 +27,4 @@ public class Student extends EntityDomain {
 	private String enrollNumber;
 	private Integer position;
 	private String email;
-	
-	@Override
-	public StudentDto toDto() {
-		return StudentDto.builder()
-				.firstName(this.getFirstName())
-				.mediumName(this.getMediumName())
-				.lastName(this.getLastName())
-				.birthDate(String.valueOf(this.getBirthDate()))
-				.startDate(String.valueOf(this.getStartDate()))
-				.endDate(String.valueOf(this.getEndDate() != null ? this.getEndDate() : null))
-				.position(this.getPosition())
-				.email(this.getEmail())
-				.build();
-	}
 }

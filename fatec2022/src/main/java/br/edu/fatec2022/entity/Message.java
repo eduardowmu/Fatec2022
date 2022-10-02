@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import br.edu.fatec2022.dto.Dto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,9 +25,4 @@ public class Message extends EntityDomain implements Serializable {
 	private Long id;
 	private String value;
 	private LocalDate eventDate;
-	
-	@Override
-	public Dto toDto() {
-		return null;
-	}
 }

@@ -18,6 +18,6 @@ public class ListAll implements Command {
 
 	@Override
 	public List<EntityDomain> execute(EntityDomain ed) {
-		return this.facade.findAll();
+		return this.facade.findAll(ed.getClass().getName());
 	}
 }

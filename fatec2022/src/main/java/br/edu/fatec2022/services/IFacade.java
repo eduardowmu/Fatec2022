@@ -9,7 +9,7 @@ import br.edu.fatec2022.entity.EntityDomain;
 @Service
 public interface IFacade {
 	EntityDomain save(EntityDomain ed);
-	List<EntityDomain> findAll();
+	List<EntityDomain> findAll(String entity);
 	EntityDomain update(EntityDomain ed);
 	void delete(EntityDomain ed);
 }
