@@ -2,6 +2,7 @@ package br.edu.fatec2022.vh;
 
 import java.time.LocalDate;
 
+import br.edu.fatec2022.entity.EntityDomain;
 import br.edu.fatec2022.entity.Message;
 import br.edu.fatec2022.entity.Student;
 import br.edu.fatec2022.utils.ParametersUtils;
@@ -25,9 +26,9 @@ public class StudentVh implements EntityVh {
 	}
 
 	@Override
-	public EntityVo getEntityResponse(Object obj) {
-		if(obj instanceof Student) {
-			Student student = (Student)obj;
+	public EntityVo getEntityResponse(EntityDomain ed) {
+		if(ed instanceof Student) {
+			Student student = (Student)ed;
 			return EntityVo.builder()
 					.id(student.getId())
 					.firstName(student.getFirstName())
@@ -41,7 +42,7 @@ public class StudentVh implements EntityVh {
 					.email(student.getEmail())
 					.build();
 		} else {
-			Message msg = (Message)obj;
+			Message msg = (Message)ed;
 			return EntityVo.builder().msg(msg.getValue()).build();
 		}
 	}

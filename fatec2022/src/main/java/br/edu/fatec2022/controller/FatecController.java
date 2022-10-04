@@ -48,7 +48,7 @@ public class FatecController {
 			@RequestBody EntityVo request) {
 		var vh = this.viewHelpers.get(entity);
 		var ed = vh.getEntityRequest(request);
-		var response = this.commands.get(ParametersUtils.SAVE).execute(ed);
+		var response = (EntityDomain)this.commands.get(ParametersUtils.SAVE).execute(ed);
 		return ResponseEntity.ok().body(vh.getEntityResponse(response));
 	}
 	
@@ -56,8 +56,8 @@ public class FatecController {
 	public ResponseEntity<List<EntityVo>> listAll(@PathVariable(ParametersUtils.ENTITY) String entity) {
 		var vh = this.viewHelpers.get(entity);
 		var ed = EntityUtils.getEntity(entity);
-		var response = this.commands.get(ParametersUtils.LIST).execute(ed);
-		return ResponseEntity.ok().body(this.getListEntityVo((List<EntityDomain>)response, vh));
+		var response = (List<EntityDomain>)this.commands.get(ParametersUtils.LIST).execute(ed);
+		return ResponseEntity.ok().body(this.getListEntityVo(response, vh));
 	}
 	
 	private List<EntityVo> getListEntityVo(List<EntityDomain> entities, EntityVh vh) {

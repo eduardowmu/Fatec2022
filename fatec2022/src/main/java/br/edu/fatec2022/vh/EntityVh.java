@@ -5,5 +5,5 @@ import br.edu.fatec2022.vo.EntityVo;
 
 public interface EntityVh {
 	public abstract EntityDomain getEntityRequest(EntityVo e);
-	public abstract EntityVo getEntityResponse(Object obj);
+	public abstract EntityVo getEntityResponse(EntityDomain ed);
 }

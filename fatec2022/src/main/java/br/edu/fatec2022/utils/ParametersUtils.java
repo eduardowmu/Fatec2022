@@ -20,4 +20,7 @@ public class ParametersUtils {
 	
 	//atributos estaticos de em geral
 	public static final String EMPTY = "";
+	
+	//atributos estaticos de pacotes
+	public static final String BASIC_PACKAGE = "br.edu.fatec2022.";
 }

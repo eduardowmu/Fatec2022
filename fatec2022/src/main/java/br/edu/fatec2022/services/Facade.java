@@ -19,6 +19,7 @@ import br.edu.fatec2022.strategy.CreateEnroll;
 import br.edu.fatec2022.strategy.Rule;
 import br.edu.fatec2022.strategy.ValidateDates;
 import br.edu.fatec2022.strategy.ValidateName;
+import br.edu.fatec2022.utils.EntityUtils;
 import br.edu.fatec2022.utils.MessageUtils;
 import br.edu.fatec2022.utils.ParametersUtils;
 
@@ -54,8 +55,9 @@ public class Facade implements IFacade {
 		brCreateStudent.add(ce);
 		brCreateStudent.add(cEmail);
 		
-		//There are not any rules for ListAll Students, but
-		//we can not allow a nullable List
+		//List of rules for listening students
+		
+		
 		List<Rule> brListStudent = new ArrayList<>();
 		
 		//Creating Maps for each events about students
@@ -85,22 +87,21 @@ public class Facade implements IFacade {
 	@Override
 	public EntityDomain save(EntityDomain ed) {
 		var response = this.getEntityFromRules(ed, ParametersUtils.SAVE);
-		return (EntityDomain)this.daos.get(response.getClass().getName()).save(response);
+		return (EntityDomain)this.daos.get(response.getClass().getName().replace(
+				ParametersUtils.BASIC_PACKAGE.concat(ParametersUtils.ENTITY), 
+				ParametersUtils.EMPTY)).save(response);
 	}
 
 	@Override
 	public List<EntityDomain> findAll(String entity) {
-		List<EntityDomain> list = this.daos.get(entity).findAll();
-		if(list != null && list.size() > 0) {
-			return list;
+		var response = this.getEntityFromRules(EntityUtils.getEntity(entity), ParametersUtils.LIST);
+		List<EntityDomain> list = new ArrayList<>();
+		if(response instanceof Message) {
+			list.add(response);
 		} else {
-			list = new ArrayList<>();
-			list.add(Message.builder()
-					.value(MessageUtils.NOT_FOUND_ANY_OBJECT)
-					.eventDate(LocalDate.now())
-					.build());
-			return list;
+			list.addAll(this.daos.get(entity).findAll());
 		}
+		return list;
 	}
 
 	@Override
