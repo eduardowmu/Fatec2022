@@ -25,6 +25,7 @@ public class Student extends EntityDomain {
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private String enrollNumber;
+	private String courseId;
 	private Integer position;
 	private String email;
 }

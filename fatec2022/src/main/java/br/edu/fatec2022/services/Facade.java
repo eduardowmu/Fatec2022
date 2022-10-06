@@ -1,6 +1,5 @@
 package br.edu.fatec2022.services;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,12 +19,10 @@ import br.edu.fatec2022.strategy.Rule;
 import br.edu.fatec2022.strategy.ValidateDates;
 import br.edu.fatec2022.strategy.ValidateName;
 import br.edu.fatec2022.utils.EntityUtils;
-import br.edu.fatec2022.utils.MessageUtils;
 import br.edu.fatec2022.utils.ParametersUtils;
 
 public class Facade implements IFacade {
 
-	private Map<String, JpaRepository> daos;
 	private Map<String, Map<String, List<Rule>>> rules;
 	
 	@Autowired
@@ -35,12 +32,7 @@ public class Facade implements IFacade {
 	private MessageDao messageDao;
 	
 	public Facade() {
-		this.daos = new HashMap<>();
 		this.rules = new HashMap<>();
-		
-		//creating Maps to call repositories
-		this.daos.put(Student.class.getName(), studentDao);
-		this.daos.put(Message.class.getName(), messageDao);
 		
 		//Validations rules for Create Student
 		ValidateName vn = new ValidateName();
@@ -86,10 +78,15 @@ public class Facade implements IFacade {
 	
 	@Override
 	public EntityDomain save(EntityDomain ed) {
-		var response = this.getEntityFromRules(ed, ParametersUtils.SAVE);
-		return (EntityDomain)this.daos.get(response.getClass().getName().replace(
-				ParametersUtils.BASIC_PACKAGE.concat(ParametersUtils.ENTITY), 
-				ParametersUtils.EMPTY)).save(response);
+		var entity = this.getEntityFromRules(ed, ParametersUtils.SAVE);
+		String entityName = entity.getClass().getName().toLowerCase().replace(ParametersUtils.ENTITY_PACKAGE, ParametersUtils.EMPTY);
+		switch(entityName) {
+			case ParametersUtils.STUDENT:
+				return this.studentDao.save((Student)entity);
+			case ParametersUtils.MESSAGE:
+				return this.messageDao.save((Message)entity);
+		}
+		return ed;//(EntityDomain)this.daos.get(entityName).save(response);
 	}
 
 	@Override
@@ -99,7 +96,7 @@ public class Facade implements IFacade {
 		if(response instanceof Message) {
 			list.add(response);
 		} else {
-			list.addAll(this.daos.get(entity).findAll());
+			list.addAll(this.studentDao.findAll());
 		}
 		return list;
 	}

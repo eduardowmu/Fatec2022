@@ -13,6 +13,8 @@ public class CreateEmail implements Rule {
 	}
 	
 	private String setStudentEmail(Student student) {
-		return student.getFirstName() + "." + student.getLastName() + ParametersUtils.EMAIL;
+		return student.getFirstName().toLowerCase().concat(ParametersUtils.DOT)
+				.concat(student.getLastName().toLowerCase())
+				.concat(ParametersUtils.EMAIL);
 	}
 }

@@ -20,7 +20,7 @@ public class ValidateEntityList implements Rule {
 
 	@Override
 	public EntityDomain process(EntityDomain ed) {
-		switch(ed.getClass().getName()) {
+		switch(ed.getClass().getName().replace(ParametersUtils.ENTITY_PACKAGE, ParametersUtils.EMPTY).toLowerCase()) {
 			case ParametersUtils.STUDENT:
 				return !this.studentDao.findAll().isEmpty() ? ed :
 					Message.builder()

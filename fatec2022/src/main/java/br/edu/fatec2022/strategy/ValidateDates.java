@@ -12,10 +12,10 @@ public class ValidateDates implements Rule {
 	@Override
 	public EntityDomain process(EntityDomain ed) {
 		var student = (Student)ed;
-		var age = student.getStartDate().getYear() - student.getBirthDate().getYear();
+		var age = LocalDate.now().getYear() - student.getBirthDate().getYear();
 		if(age < 18) {
 			return Message.builder()
-					.value(MessageUtils.HAS_NOT_AGE_ENOUGTH  + age)
+					.value(MessageUtils.HAS_NOT_AGE_ENOUGTH.concat(ParametersUtils.DOUBLE_POINT)  + age)
 					.eventDate(LocalDate.now())
 					.build();
 		}

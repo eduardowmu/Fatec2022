@@ -20,7 +20,16 @@ public class ParametersUtils {
 	
 	//atributos estaticos de em geral
 	public static final String EMPTY = "";
+	public static final String DOUBLE_POINT = ": ";
+	public static final String DOT = ".";
 	
 	//atributos estaticos de pacotes
 	public static final String BASIC_PACKAGE = "br.edu.fatec2022.";
+	public static final String ENTITY_PACKAGE = BASIC_PACKAGE.concat("entity.");
+	
+	//numeros
+	public static final String ZERO = "0";
+	
+	//REGEX
+	public static final String REGEX_ESPECIAL_CHARACTER = "[^a-zA-Z]";
 }

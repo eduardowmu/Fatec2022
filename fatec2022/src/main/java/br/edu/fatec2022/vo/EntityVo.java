@@ -19,11 +19,14 @@ public class EntityVo {
 	private String birthDate;
 	private String startDate;
 	private String endDate;
+	private String courseId;
 	private String enrollNumber;
 	private String email;
 	
 	//Student
 	private Integer position;
+	
+	//
 	
 	//Msg
 	private String msg;
