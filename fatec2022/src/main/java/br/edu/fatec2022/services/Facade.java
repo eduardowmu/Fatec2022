@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
 import br.edu.fatec2022.entity.EntityDomain;
 import br.edu.fatec2022.entity.Message;
 import br.edu.fatec2022.entity.Student;
-import br.edu.fatec2022.repository.MessageDao;
-import br.edu.fatec2022.repository.StudentDao;
+import br.edu.fatec2022.repository.MessageRepository;
+import br.edu.fatec2022.repository.StudentRepository;
 import br.edu.fatec2022.strategy.CreateEmail;
 import br.edu.fatec2022.strategy.CreateEnroll;
 import br.edu.fatec2022.strategy.Rule;
@@ -20,18 +20,18 @@ import br.edu.fatec2022.strategy.ValidateDates;
 import br.edu.fatec2022.strategy.ValidateName;
 import br.edu.fatec2022.utils.EntityUtils;
 import br.edu.fatec2022.utils.ParametersUtils;
-
+@Service
 public class Facade implements IFacade {
-
+	@Autowired
+	private StudentRepository studentRepository;
+	
+	@Autowired
+	private MessageRepository messageRepository;
+	
 	private Map<String, Map<String, List<Rule>>> rules;
 	
-	@Autowired
-	private StudentDao studentDao;
-	
-	@Autowired
-	private MessageDao messageDao;
-	
 	public Facade() {
+		
 		this.rules = new HashMap<>();
 		
 		//Validations rules for Create Student
@@ -76,27 +76,36 @@ public class Facade implements IFacade {
 		return ed;
 	}
 	
+	private String getEntityName(EntityDomain ed) {
+		return ed.getClass().getName().toLowerCase()
+				.replace(ParametersUtils.ENTITY_PACKAGE, ParametersUtils.EMPTY);
+	}
+	
 	@Override
 	public EntityDomain save(EntityDomain ed) {
 		var entity = this.getEntityFromRules(ed, ParametersUtils.SAVE);
-		String entityName = entity.getClass().getName().toLowerCase().replace(ParametersUtils.ENTITY_PACKAGE, ParametersUtils.EMPTY);
-		switch(entityName) {
+		switch(this.getEntityName(entity)) {
 			case ParametersUtils.STUDENT:
-				return this.studentDao.save((Student)entity);
+				return this.studentRepository.save((Student)entity);
+			
 			case ParametersUtils.MESSAGE:
-				return this.messageDao.save((Message)entity);
+				return this.messageRepository.save((Message)entity);
 		}
-		return ed;//(EntityDomain)this.daos.get(entityName).save(response);
+		return entity;
 	}
 
 	@Override
 	public List<EntityDomain> findAll(String entity) {
 		var response = this.getEntityFromRules(EntityUtils.getEntity(entity), ParametersUtils.LIST);
 		List<EntityDomain> list = new ArrayList<>();
-		if(response instanceof Message) {
-			list.add(response);
-		} else {
-			list.addAll(this.studentDao.findAll());
+		switch(this.getEntityName(response)) {
+			case ParametersUtils.STUDENT:
+				//list.addAll(this.studentDao.findAll());
+				break;
+				
+			case ParametersUtils.MESSAGE:
+				list.add(response);
+				break;
 		}
 		return list;
 	}

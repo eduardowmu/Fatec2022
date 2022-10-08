@@ -37,6 +37,7 @@ public class StudentVh implements EntityVh {
 					.birthDate(String.valueOf(student.getBirthDate()) != null ? String.valueOf(student.getBirthDate()) : ParametersUtils.EMPTY)
 					.startDate(String.valueOf(student.getStartDate()) != null ? String.valueOf(student.getStartDate()) : ParametersUtils.EMPTY)
 					.endDate(student.getEndDate() != null ? String.valueOf(student.getEndDate()) : ParametersUtils.EMPTY)
+					.courseId(student.getCourseId() != null ? student.getCourseId() : ParametersUtils.EMPTY)
 					.enrollNumber(student.getEnrollNumber() != null ? student.getEnrollNumber() : ParametersUtils.EMPTY)
 					.position(student.getPosition())
 					.email(student.getEmail() != null ? student.getEmail() : ParametersUtils.EMPTY)

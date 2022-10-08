@@ -6,13 +6,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 @Builder
 @Setter
 @Getter
-@Entity(name="students")
+@Entity
+@Table(name="students")
 public class Student extends EntityDomain {
 	private static final long serialVersionUID = 1L;
 	@Id

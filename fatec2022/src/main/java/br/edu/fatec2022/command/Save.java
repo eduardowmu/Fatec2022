@@ -7,7 +7,7 @@ import br.edu.fatec2022.services.Facade;
 import br.edu.fatec2022.services.IFacade;
 
 public class Save implements Command {
-	private final IFacade facade;
+	private final Facade facade;
 	
 	@Autowired
 	public Save() {
