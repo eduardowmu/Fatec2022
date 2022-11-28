@@ -24,7 +24,7 @@ public class ParametersUtils {
 	public static final String DOT = ".";
 	
 	//atributos estaticos de pacotes
-	public static final String BASIC_PACKAGE = "br.edu.fatec2022.";
+	public static final String BASIC_PACKAGE = "br.edu.fatec.";
 	public static final String ENTITY_PACKAGE = BASIC_PACKAGE.concat("entity.");
 	
 	//numeros

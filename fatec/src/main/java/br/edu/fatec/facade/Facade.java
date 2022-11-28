@@ -1,5 +1,6 @@
 package br.edu.fatec.facade;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,29 +8,34 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import br.edu.fatec.dao.MessageRepository;
-import br.edu.fatec.dao.StudentRepository;
 import br.edu.fatec.model.EntityDomain;
 import br.edu.fatec.model.Message;
 import br.edu.fatec.model.Student;
+import br.edu.fatec.services.IService;
+import br.edu.fatec.services.MessageService;
+import br.edu.fatec.services.StudentService;
 import br.edu.fatec.strategy.CreateEmail;
 import br.edu.fatec.strategy.CreateEnroll;
 import br.edu.fatec.strategy.StrategyPattern;
 import br.edu.fatec.strategy.ValidateDate;
 import br.edu.fatec.strategy.ValidateName;
-import br.edu.fatec.utils.EntityUtils;
 import br.edu.fatec.utils.ParametersUtils;
 
 public class Facade implements IFacade {
 	@Autowired
-	private StudentRepository studentRepository;
+	private StudentService studentService;
 	
 	@Autowired
-	private MessageRepository messageRepository;
+	private MessageService messageService;
+	
+	private Map<String, IService> service;
 	
 	private Map<String, Map<String, List<StrategyPattern>>> rules;
 	
 	public Facade() {
+		this.service = new HashMap<>();
+		this.service.put(Student.class.getSimpleName(), studentService);
+		this.service.put(Message.class.getSimpleName(), messageService);
 		
 		this.rules = new HashMap<>();
 		
@@ -75,38 +81,21 @@ public class Facade implements IFacade {
 		return ed;
 	}
 	
-	private String getEntityName(EntityDomain ed) {
-		return ed.getClass().getName().toLowerCase()
-				.replace(ParametersUtils.ENTITY_PACKAGE, ParametersUtils.EMPTY);
-	}
-	
 	@Override
 	public EntityDomain save(EntityDomain ed) {
-		var entity = this.getEntityFromRules(ed, ParametersUtils.SAVE);
-		switch(this.getEntityName(entity)) {
-			case ParametersUtils.STUDENT:
-				return this.studentRepository.save((Student)entity);
-			
-			case ParametersUtils.MESSAGE:
-				return this.messageRepository.save((Message)entity);
-		}
-		return entity;
+		EntityDomain entity = getEntityFromRules(ed, ParametersUtils.SAVE);
+		if(entity instanceof Message) {
+			return this.service.get(Message.class.getSimpleName()).save(entity);
+		} 
+	
+		return this.service.get(ed.getClass().getSimpleName()).save(entity);
 	}
 
 	@Override
 	public List<EntityDomain> findAll(String entity) {
-		var response = this.getEntityFromRules(EntityUtils.getEntity(entity), ParametersUtils.LIST);
-		List<EntityDomain> list = new ArrayList<>();
-		switch(this.getEntityName(response)) {
-			case ParametersUtils.STUDENT:
-				list.addAll(this.studentRepository.findAll());
-				break;
-				
-			case ParametersUtils.MESSAGE:
-				list.add(response);
-				break;
-		}
-		return list;
+		List<EntityDomain> entities = new ArrayList<>();
+		entities.addAll(this.service.get(entity).findAll(entity));
+		return entities;
 	}
 
 	@Override
