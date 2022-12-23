@@ -1,12 +1,12 @@
 package br.edu.fatec.facade;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.edu.fatec.model.EntityDomain;
 import br.edu.fatec.model.Message;
@@ -20,7 +20,7 @@ import br.edu.fatec.strategy.StrategyPattern;
 import br.edu.fatec.strategy.ValidateDate;
 import br.edu.fatec.strategy.ValidateName;
 import br.edu.fatec.utils.ParametersUtils;
-
+@Service
 public class Facade implements IFacade {
 	@Autowired
 	private StudentService studentService;
@@ -84,11 +84,7 @@ public class Facade implements IFacade {
 	@Override
 	public EntityDomain save(EntityDomain ed) {
 		EntityDomain entity = getEntityFromRules(ed, ParametersUtils.SAVE);
-		if(entity instanceof Message) {
-			return this.service.get(Message.class.getSimpleName()).save(entity);
-		} 
-	
-		return this.service.get(ed.getClass().getSimpleName()).save(entity);
+		return this.service.get(entity.getClass().getSimpleName()).save(entity);
 	}
 
 	@Override

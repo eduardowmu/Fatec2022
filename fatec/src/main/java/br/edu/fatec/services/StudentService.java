@@ -12,7 +12,7 @@ import br.edu.fatec.model.Student;
 
 @Service
 public class StudentService implements IService{
-	private static StudentRepository repository;
+	private final StudentRepository repository;
 	
 	@Autowired
 	public StudentService(StudentRepository repository) {
@@ -20,7 +20,7 @@ public class StudentService implements IService{
 	}
 	
 	@Override
-	public EntityDomain save(EntityDomain ed) {
+	public Student save(EntityDomain ed) {
 		return this.repository.save((Student)ed);
 	}
 

@@ -11,12 +11,8 @@ import br.edu.fatec.model.Message;
 
 @Service
 public class MessageService implements IService {
-	private static MessageRepository repository;
-	
 	@Autowired
-	public MessageService(MessageRepository repository) {
-		this.repository = repository;
-	}
+	private MessageRepository repository;
 	
 	@Override
 	public EntityDomain save(EntityDomain ed) {
