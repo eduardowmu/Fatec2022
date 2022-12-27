@@ -2,12 +2,12 @@ package br.edu.fatec.crud.vh;
 
 import java.time.LocalDate;
 
-import br.edu.fatec.model.EntityDomain;
-import br.edu.fatec.model.Message;
-import br.edu.fatec.model.Student;
-import br.edu.fatec.utils.MessageUtils;
-import br.edu.fatec.utils.ParametersUtils;
-import br.edu.fatec.vo.EntityVo;
+import br.edu.fatec.crud.model.EntityDomain;
+import br.edu.fatec.crud.model.Message;
+import br.edu.fatec.crud.model.Student;
+import br.edu.fatec.crud.utils.MessageUtils;
+import br.edu.fatec.crud.utils.ParametersUtils;
+import br.edu.fatec.crud.vo.EntityVo;
 
 public class StudentVh implements EntityVh {
 	@Override

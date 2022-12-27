@@ -1,8 +1,8 @@
 package br.edu.fatec.crud.strategy;
 
-import br.edu.fatec.model.EntityDomain;
-import br.edu.fatec.model.Student;
-import br.edu.fatec.utils.ParametersUtils;
+import br.edu.fatec.crud.model.EntityDomain;
+import br.edu.fatec.crud.model.Student;
+import br.edu.fatec.crud.utils.ParametersUtils;
 
 public class CreateEmail implements StrategyPattern {
 	@Override

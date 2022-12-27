@@ -8,18 +8,13 @@ import br.edu.fatec.crud.model.EntityDomain;
 import br.edu.fatec.crud.model.Message;
 import br.edu.fatec.crud.repository.MessageRepository;
 
-public class MessageService implements Facade {
-	private final MessageRepository repository;
-	
+public class MessageService extends EntityService {
 	@Autowired
-	public MessageService(MessageRepository repository) {
-		this.repository = repository;
-	}
+	private MessageRepository repository;
 	
 	@Override
 	public Message save(EntityDomain ed) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.repository.save((Message)ed);
 	}
 
 	@Override
@@ -39,10 +34,4 @@ public class MessageService implements Facade {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public EntityDomain getEntityFromRules(EntityDomain ed, String event) {
-		return null;
-	}
-
 }

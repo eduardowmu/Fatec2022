@@ -3,7 +3,7 @@ package br.edu.fatec.crud.vo;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import br.edu.fatec.model.Student;
+import br.edu.fatec.crud.model.Student;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
