@@ -7,32 +7,18 @@ import br.edu.fatec.crud.model.EntityDomain;
 import br.edu.fatec.crud.model.Message;
 import br.edu.fatec.crud.strategy.StrategyPattern;
 
-public abstract class EntityService implements Facade {
+public abstract class EntityService {
 	protected Map<String, Map<String, List<StrategyPattern>>> rules;
 	
-	@Override
-	public EntityDomain save(EntityDomain ed) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public abstract EntityDomain save(EntityDomain ed);
 
-	@Override
-	public EntityDomain update(EntityDomain ed) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public abstract EntityDomain update(EntityDomain ed);
 
-	@Override
-	public List<EntityDomain> listAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public abstract List<EntityDomain> listAll();
 
-	@Override
-	public void delete(EntityDomain ed) {}
+	public abstract void delete(EntityDomain ed);
 
-	@Override
-	public EntityDomain getEntityFromRules(EntityDomain ed, String event) {
+	protected EntityDomain getEntityFromRules(EntityDomain ed, String event) {
 		Map<String, List<StrategyPattern>> operationRules = this.rules.get(ed.getClass().getName());
 		if(operationRules != null) {
 			List<StrategyPattern> rulesList = operationRules.get(event);

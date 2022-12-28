@@ -14,6 +14,7 @@ public class ParametersUtils {
 	public static final String ENTITY = "entity";
 	
 	//atributos estaticos de paths de eventos
+	public static final String FATEC_PATH = "/fatec";
 	public static final String ENTITY_PATH = "/{entity}";
 	public static final String SAVE_PATH = "/save";
 	public static final String LIST_PATH = "/list";
