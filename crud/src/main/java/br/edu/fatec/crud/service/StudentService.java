@@ -6,25 +6,25 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.edu.fatec.crud.model.EntityDomain;
 import br.edu.fatec.crud.model.Student;
 import br.edu.fatec.crud.repository.StudentRepository;
 import br.edu.fatec.crud.strategy.CreateEmail;
 import br.edu.fatec.crud.strategy.CreateEnroll;
+import br.edu.fatec.crud.strategy.StrategyPattern;
 import br.edu.fatec.crud.strategy.ValidateDate;
 import br.edu.fatec.crud.strategy.ValidateName;
 import br.edu.fatec.crud.utils.ParametersUtils;
-import br.edu.fatec.crud.strategy.StrategyPattern;
-
-public class StudentService extends EntityService {
+@Service
+public class StudentService extends Facade{
 	@Autowired
 	private StudentRepository repository;
 	
-	@Autowired
-	private MessageService messageService;
-	
 	public StudentService() {
+		this.rules = new HashMap<>();
+		
 		//Validations rules for Create Student
 		ValidateName vn = new ValidateName();
 		ValidateDate vd = new ValidateDate();
@@ -39,40 +39,32 @@ public class StudentService extends EntityService {
 		brCreateStudent.add(cEmail);
 		
 		//List of rules for listening students
+		
+		
 		List<StrategyPattern> brListStudent = new ArrayList<>();
-				
+		
 		//Creating Maps for each events about students
 		Map<String, List<StrategyPattern>> studentRules = new HashMap<>();
 		studentRules.put(ParametersUtils.SAVE, brCreateStudent);
 		studentRules.put(ParametersUtils.LIST, brListStudent);
 		
 		//Finally we complete a Map with rules of all Entities and events
-		this.rules = new HashMap<>();
-		this.rules.put(Student.class.getSimpleName(), studentRules);
+		this.rules.put(Student.class.getName(), studentRules);
 	}
 	
-	@Override
 	public EntityDomain save(EntityDomain ed) {
-		EntityDomain entity = this.getEntityFromRules(ed, ParametersUtils.SAVE);
-		return entity instanceof Student ? this.repository.save((Student) entity) : this.messageService.save(entity);
+		var entity = this.getEntityFromRules(ed, ParametersUtils.SAVE);
+		return this.repository.save((Student) entity);
 	}
-
-	@Override
-	public EntityDomain update(EntityDomain ed) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
+	
 	public List<EntityDomain> listAll() {
-		List<EntityDomain> students = new ArrayList<>();
-		students.addAll(this.repository.findAll());
-		return students;
-	}
-
-	@Override
-	public void delete(EntityDomain ed) {
-		// TODO Auto-generated method stub
-
+		List<Student> students = this.repository.findAll();
+		List<EntityDomain> entities = new ArrayList<>();
+		if(students != null && !students.isEmpty()) {
+			students.stream().forEach(std -> {
+				entities.add(std);
+			});
+		}
+		return entities;
 	}
 }
