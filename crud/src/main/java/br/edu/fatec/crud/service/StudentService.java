@@ -22,6 +22,9 @@ public class StudentService extends Facade{
 	@Autowired
 	private StudentRepository repository;
 	
+	@Autowired
+	private MessageService messageService;
+	
 	public StudentService() {
 		this.rules = new HashMap<>();
 		
@@ -54,7 +57,7 @@ public class StudentService extends Facade{
 	
 	public EntityDomain save(EntityDomain ed) {
 		var entity = this.getEntityFromRules(ed, ParametersUtils.SAVE);
-		return this.repository.save((Student) entity);
+		return entity instanceof Student ? this.repository.save((Student) entity) : this.messageService.save(entity);
 	}
 	
 	public List<EntityDomain> listAll() {

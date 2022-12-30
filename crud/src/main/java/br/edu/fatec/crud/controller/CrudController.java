@@ -60,7 +60,6 @@ public class CrudController {
 			entitiesVo.add(vh.getEntityResponse(e));
 		});
 		return ResponseEntity.ok(entitiesVo);
-				//null;
 	}
 	
 	private Facade getService(String entity) {
