@@ -1,0 +1,33 @@
+<div class="container">
+    <button class="novo-todo mat-elevation-z8"
+      mat-stroked-button color="primary">Read All
+    </button>
+    <!--ngFor para cada item de objeto de Todo-->
+    <div class="content" *ngFor="let item of list">
+        <mat-card class="mat-elevation-z8">
+            <p>Matricula: {{item.enrollNumber}}</p>
+            <mat-card-header>
+              <!--Recebendo os valores da lista de Todo-->
+              <mat-card-title>{{item.firstName}}</mat-card-title>
+              <mat-card-subtitle>{{item.lastName}}</mat-card-subtitle>
+              <mat-card-subtitle>{{item.email}}</mat-card-subtitle>
+            </mat-card-header>
+            <!--Div que irá receber as ações da request-->
+            <div class="actions">
+                <!--inserindo novos botões-->
+                <button mat-mini-fab color="primary"
+                    aria-label="Example icon button with a menu icon">
+                    <mat-icon>done</mat-icon>
+                </button>
+                <button mat-mini-fab color="accent"
+                    aria-label="Example icon button with a menu icon">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-mini-fab color="warn"
+                    aria-label="Example icon button with a menu icon">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+          </mat-card>
+    </div>
+</div>
