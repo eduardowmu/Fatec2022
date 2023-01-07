@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ import br.edu.fatec.crud.vh.EntityVh;
 import br.edu.fatec.crud.vh.StudentVh;
 import br.edu.fatec.crud.vo.EntityVo;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping(value=ParametersUtils.ENTITY_PATH)
 public class CrudController {
@@ -45,12 +47,12 @@ public class CrudController {
 		var vh = this.viewHelper.get(entity);
 		var request = vh.getEntityRequest(requestVo);
 		var service = this.getService(entity);
-		var ent = service.save(request);
-		var responseVo = vh.getEntityResponse(ent);
+		var response = service.save(request);
+		var responseVo = vh.getEntityResponse(response);
 		return ResponseEntity.ok(responseVo);
 	}
 	
-	@GetMapping(ParametersUtils.LIST_PATH)
+	@GetMapping
 	public ResponseEntity<List<EntityVo>> listAll(@PathVariable(ParametersUtils.ENTITY) String entity) {
 		var vh = this.viewHelper.get(entity);
 		var service = this.getService(entity);
@@ -61,7 +63,7 @@ public class CrudController {
 		});
 		return ResponseEntity.ok(entitiesVo);
 	}
-	
+
 	private Facade getService(String entity) {
 		switch(entity) {
 			case ParametersUtils.STUDENT:
