@@ -8,9 +8,13 @@
             <p>Matricula: {{item.enrollNumber}}</p>
             <mat-card-header>
               <!--Recebendo os valores da lista de Todo-->
-              <mat-card-title>{{item.firstName}}</mat-card-title>
-              <mat-card-subtitle>{{item.lastName}}</mat-card-subtitle>
-              <mat-card-subtitle>{{item.email}}</mat-card-subtitle>
+              <mat-card-subtitle>Nome: {{item.firstName}} {{item.mediumName}} {{item.lastName}}</mat-card-subtitle>
+              <mat-card-subtitle>Nascimento: {{item.birthDate}}</mat-card-subtitle>
+              <mat-card-subtitle>Data inicio: {{item.startDate}}</mat-card-subtitle>
+              <mat-card-subtitle>Data fim: {{item.endDate}}</mat-card-subtitle>
+              <mat-card-subtitle>Codigo do curso: {{item.courseId}}</mat-card-subtitle>
+              <mat-card-subtitle>Posição: {{item.position}}</mat-card-subtitle>
+              <mat-card-subtitle>E-mail: {{item.email}}</mat-card-subtitle>
             </mat-card-header>
             <!--Div que irá receber as ações da request-->
             <div class="actions">
