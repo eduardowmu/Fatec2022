@@ -22,7 +22,16 @@ export class ReadAllComponent implements OnInit {
   findAll():void {
     this.service.findAll().subscribe((resposta) => {
       this.list = resposta;
+      this.countClosed();
     })
+  }
+
+  countClosed():void {
+    for(let todo of this.list) {
+      if(todo.endDate == "") {
+        this.closed++;
+      }
+    }
   }
 }
 /*
