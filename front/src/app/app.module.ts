@@ -12,9 +12,16 @@ import {MatButtonModule} from '@angular/material/button';
 //import da API do icon: https://material.angular.io/components/icon/api
 import {MatIconModule} from '@angular/material/icon';
 import {MatBadgeModule} from '@angular/material/badge';
-
+import { FormsModule } from '@angular/forms';
+//inputs: https://material.angular.io/components/input/api
+import {MatInputModule} from '@angular/material/input';
+//datepicker: https://material.angular.io/components/datepicker/api
+import {MatDatepickerModule} from '@angular/material/datepicker';
+//api para funcionar o modulo acima
+import { MatNativeDateModule } from '@angular/material/core';
 import { FooterComponent } from './component/footer/footer.component';
 import { ReadAllComponent } from './components/read-all/read-all.component';
+import { CreateComponent } from './components/create/create.component';
 
 
 @NgModule({
@@ -22,7 +29,8 @@ import { ReadAllComponent } from './components/read-all/read-all.component';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ReadAllComponent
+    ReadAllComponent,
+    CreateComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +41,11 @@ import { ReadAllComponent } from './components/read-all/read-all.component';
     MatButtonModule,
     MatIconModule,
     HttpClientModule,
-    MatBadgeModule
+    MatBadgeModule,
+    FormsModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,8 +1,13 @@
 .footer {
     height: 5%;
+    margin-top: 1rem;
     /*position: fixed;*/
     bottom: 0;
     font-size: 1rem;
     justify-content: center;
     bottom: 0;
+}
+
+p {
+    margin-top: auto;
 }

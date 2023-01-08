@@ -4,15 +4,15 @@
             matBadge="{{closed}}">Number of Student
         </button>    
     </div>
-    <button class="novo-todo mat-elevation-z8"
-      mat-stroked-button color="primary">Read All
+    <button (click)="goToCreateNew()" class="novo-todo mat-elevation-z8"
+      mat-stroked-button color="primary">New Student
     </button>
-    <!--ngFor para cada item de objeto de Todo-->
+    <!--ngFor para cada item de objeto de Student-->
     <div class="content" *ngFor="let item of list">
         <mat-card class="mat-elevation-z8">
             <p>Matricula: {{item.enrollNumber}}</p>
             <mat-card-header>
-              <!--Recebendo os valores da lista de Todo-->
+              <!--Recebendo os valores da lista de Student-->
               <mat-card-subtitle>Nome: {{item.firstName}} {{item.mediumName}} {{item.lastName}}</mat-card-subtitle>
               <mat-card-subtitle>Nascimento: {{item.birthDate}}</mat-card-subtitle>
               <mat-card-subtitle>Data inicio: {{item.startDate}}</mat-card-subtitle>
