@@ -1,6 +1,7 @@
 package br.edu.fatec.crud.vh;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import br.edu.fatec.crud.model.EntityDomain;
 import br.edu.fatec.crud.model.Message;
@@ -29,14 +30,15 @@ public class StudentVh implements EntityVh {
 	public EntityVo getEntityResponse(EntityDomain ed) {
 		if(ed instanceof Student) {
 			Student student = (Student)ed;
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 			return EntityVo.builder()
 					.id(student.getId())
 					.firstName(student.getFirstName() != null ? student.getFirstName() : ParametersUtils.EMPTY)
 					.mediumName(student.getMediumName() != null ? student.getMediumName() : ParametersUtils.EMPTY)
 					.lastName(student.getLastName() != null ? student.getLastName() : ParametersUtils.EMPTY)
-					.birthDate(String.valueOf(student.getBirthDate()) != null ? String.valueOf(student.getBirthDate()) : ParametersUtils.EMPTY)
-					.startDate(String.valueOf(student.getStartDate()) != null ? String.valueOf(student.getStartDate()) : ParametersUtils.EMPTY)
-					.endDate(student.getEndDate() != null ? String.valueOf(student.getEndDate()) : ParametersUtils.EMPTY)
+					.birthDate(student.getBirthDate() != null ? student.getBirthDate().format(formatter) : ParametersUtils.EMPTY)
+					.startDate(student.getStartDate() != null ? student.getStartDate().format(formatter) : ParametersUtils.EMPTY)
+					.endDate(student.getEndDate() != null ? student.getEndDate().format(formatter) : ParametersUtils.EMPTY)
 					.courseId(student.getCourseId() != null ? student.getCourseId() : ParametersUtils.EMPTY)
 					.enrollNumber(student.getEnrollNumber() != null ? student.getEnrollNumber() : ParametersUtils.EMPTY)
 					.position(student.getPosition())
