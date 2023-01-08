@@ -24,12 +24,12 @@ export class ReadAllComponent implements OnInit {
     this.service.findAll().subscribe((resposta) => {
       this.list = resposta;
       this.countClosed();
-    })
+    });
   }
 
   countClosed():void {
-    for(let todo of this.list) {
-      if(todo.endDate == "") {
+    for(let student of this.list) {
+      if(student.endDate == "") {
         this.closed++;
       }
     }

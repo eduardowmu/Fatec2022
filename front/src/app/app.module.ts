@@ -45,7 +45,7 @@ import { CreateComponent } from './components/create/create.component';
     FormsModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

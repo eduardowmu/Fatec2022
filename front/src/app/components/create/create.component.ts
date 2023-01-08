@@ -26,17 +26,15 @@ export class CreateComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  /*
   create():void {
     this.service.create(this.student).subscribe((reponse) => {
-      this.service.message("Operação realizada com sucesso");
+      //this.service.message("Operação realizada com sucesso");
       this.router.navigate(['']);
-    }, err => this.service.message("Erro interno, favor tente novamente."));
+    })//, err => this.service.message("Erro interno, favor tente novamente."));
   }
 
   voltar():void {
-    /**Este método insere a URL o path desejado
+    /**Este método insere a URL o path desejado*/
     this.router.navigate([''])
   }
-  */
 }
