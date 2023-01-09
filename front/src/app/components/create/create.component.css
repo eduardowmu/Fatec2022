@@ -21,6 +21,7 @@ h1 {
  
 .buttons {
     width: 100%;
+    text-align: start;
 }
  
 button {

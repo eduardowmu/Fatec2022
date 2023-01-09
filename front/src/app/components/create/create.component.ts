@@ -26,6 +26,7 @@ export class CreateComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
   create():void {
     this.service.create(this.student).subscribe((reponse) => {
       //this.service.message("Operação realizada com sucesso");

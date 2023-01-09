@@ -1,51 +1,63 @@
 <form>
-    <h1>Create new Student</h1>
-    
+    <h1>Novo Aluno</h1>
+    <!--https://material.angular.io/components/datepicker/examples-->
+      <mat-form-field class="data-finalizar" appearance="fill">
+        <mat-label>Nascimento</mat-label>
+        <input [(ngModel)]="student.birthDate" name="student.birthDate" 
+            matInput [matDatepicker]="dp3" disabled>
+        <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+        <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="data-finalizar" appearance="fill">
+        <mat-label>Data de inicio</mat-label>
+        <input [(ngModel)]="student.startDate" name="student.startDate" 
+            matInput [matDatepicker]="dp3" disabled>
+        <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+        <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+      </mat-form-field>
+      
       <div class="forms">
         <!--https://material.angular.io/components/input/examples-->
         <mat-form-field class="form" appearance="fill">
             <mat-label>Nome</mat-label>
-            <input [(ngModel)]="student.firstName" name="student.firstName" matInput>
+            <input [(ngModel)] = "student.firstName" name = "student.firstName" 
+                matInput placeholder="Ex. João">
+        </mat-form-field>
+        
+        <mat-form-field class="form" appearance="fill">
+            <mat-label>Nome do meio</mat-label>
+            <input [(ngModel)] = "student.mediumName" name="student.mediumName" 
+                matInput placeholder="Ex. Ribeiro">
         </mat-form-field>
 
         <mat-form-field class="form" appearance="fill">
-            <mat-label>Medium name</mat-label>
-            <input [(ngModel)]="student.mediumName" name="student.mediumName" matInput>
+            <mat-label>Sobrenome</mat-label>
+            <input [(ngModel)] = "student.lastName" name="student.lastName" 
+                matInput placeholder="Ex. Lima">
         </mat-form-field>
-        <mat-form-field class="form" appearance="fill">
-            <mat-label>Last name</mat-label>
-            <input [(ngModel)]="student.lastName" name="student.lastName" matInput>
-        </mat-form-field>
-        <!--https://material.angular.io/components/datepicker/examples-->
-        <mat-form-field class="data-finalizar" appearance="fill">
-            <mat-label>Nascimento</mat-label>
-            <input [(ngModel)]="student.birthDate" name="student.birthDate" 
-                matInput [matDatepicker]="dp3" disabled>
-            <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
-            <mat-datepicker #dp3 disabled="false"></mat-datepicker>
-        </mat-form-field>
-        <mat-form-field class="data-finalizar" appearance="fill">
-            <mat-label>Data de inicio</mat-label>
-            <input [(ngModel)]="student.startDate" name="student.startDate"
-                matInput [matDatepicker]="dp3" disabled>
-            <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
-            <mat-datepicker #dp3 disabled="false"></mat-datepicker>
-        </mat-form-field>
+
         <mat-form-field class="form" appearance="fill">
             <mat-label>Matricula</mat-label>
-            <input [(ngModel)]="student.enrollNumber" name="student.enrollNumber">
+            <input [(ngModel)] = "student.enrollNumber" name="student.enrollNumber" 
+                matInput placeholder="Ex. 011999111">
         </mat-form-field>
+
         <mat-form-field class="form" appearance="fill">
             <mat-label>Codigo do curso</mat-label>
-            <input [(ngModel)]="student.courseId" name="student.courseId">
+            <input [(ngModel)]="student.courseId" name="student.courseId"
+                matInput placeholder="Ex. 01"/>
         </mat-form-field>
+
         <mat-form-field class="form" appearance="fill">
-            <mat-label>Codigo do curso</mat-label>
-            <input [(ngModel)]="student.position" name="student.position">
+            <mat-label>Posição</mat-label>
+            <input [(ngModel)]="student.position" name="student.position"
+                matInput placeholder="Ex. 1"/>
         </mat-form-field>
+
         <mat-form-field class="form" appearance="fill">
-            <mat-label>Codigo do curso</mat-label>
-            <input [(ngModel)]="student.email" name="student.email">
+            <mat-label>email</mat-label>
+            <input [(ngModel)]="student.email" name="student.email"
+                matInput placeholder="Ex. 1"/>
         </mat-form-field>
       </div>
       <div class="buttons">
