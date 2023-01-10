@@ -13,6 +13,7 @@ import br.edu.fatec.crud.vo.EntityVo;
 public class StudentVh implements EntityVh {
 	@Override
 	public Student getEntityRequest(EntityVo e) {
+		
 		return Student.builder()
 				.id(e.getId() != null ? e.getId() : null)
 				.firstName(e.getFirstName() != null ? e.getFirstName() : ParametersUtils.EMPTY)
@@ -52,9 +53,11 @@ public class StudentVh implements EntityVh {
 	}
 
 	private LocalDate getDate(String date) {
+		/*
 		int year = Integer.parseInt(date.substring(0, 4));
 		int month = Integer.parseInt(date.substring(5, 7));
 		int day = Integer.parseInt(date.substring(8));
-		return LocalDate.of(year, month, day);
+		*/
+		return LocalDate.parse(date);
 	}
 }

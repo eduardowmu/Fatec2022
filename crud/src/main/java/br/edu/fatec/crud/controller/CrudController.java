@@ -47,9 +47,11 @@ public class CrudController {
 		var vh = this.viewHelper.get(entity);
 		var request = vh.getEntityRequest(requestVo);
 		var service = this.getService(entity);
+		/*
 		var response = service.save(request);
 		var responseVo = vh.getEntityResponse(response);
-		return ResponseEntity.ok(responseVo);
+		*/
+		return null;//ResponseEntity.ok(responseVo);
 	}
 	
 	@GetMapping
