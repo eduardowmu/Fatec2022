@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Student } from 'src/app/Student';
 import { Observable } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
+//import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class CrudService {
   }
   
   create(student: Student) : Observable<Student> {
-    const url = `${this.baseUrl}/new`;
+    const url = `${this.baseUrl}/save`;
     return this.http.post<Student>(url, student);
   }
   /*
