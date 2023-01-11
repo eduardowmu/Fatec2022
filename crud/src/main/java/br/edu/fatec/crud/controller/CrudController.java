@@ -28,17 +28,22 @@ import br.edu.fatec.crud.vo.EntityVo;
 @RestController
 @RequestMapping(value=ParametersUtils.ENTITY_PATH)
 public class CrudController {
-	@Autowired
-	private StudentService studentService;
-	
-	@Autowired
-	private MessageService messageService;
+	private final StudentService studentService;
+	private final MessageService messageService;
 	
 	private Map<String, EntityVh> viewHelper;
+	private Map<String, Facade> service;
 	
-	public CrudController() {
+	@Autowired
+	public CrudController(StudentService studentService, MessageService messageService) {
 		this.viewHelper = new HashMap<>();
 		this.viewHelper.put(ParametersUtils.STUDENT, new StudentVh());
+		
+		this.studentService = studentService;
+		this.messageService = messageService;
+		this.service = new HashMap<>();
+		this.service.put(ParametersUtils.STUDENT, this.studentService);
+		this.service.put(ParametersUtils.MESSAGE, this.messageService);
 	}
 	
 	@PostMapping(ParametersUtils.SAVE_PATH)
@@ -46,8 +51,8 @@ public class CrudController {
 			@RequestBody EntityVo requestVo) {
 		var vh = this.viewHelper.get(entity);
 		var request = vh.getEntityRequest(requestVo);
-		var service = this.getService(entity);
-		var response = service.save(request);
+		var serv = this.service.get(entity);//this.getService(entity);
+		var response = serv.save(request);
 		var responseVo = vh.getEntityResponse(response);
 		return ResponseEntity.ok(responseVo);
 	}
@@ -55,22 +60,12 @@ public class CrudController {
 	@GetMapping
 	public ResponseEntity<List<EntityVo>> listAll(@PathVariable(ParametersUtils.ENTITY) String entity) {
 		var vh = this.viewHelper.get(entity);
-		var service = this.getService(entity);
+		var service = this.service.get(entity);//this.getService(entity);
 		List<EntityVo> entitiesVo = new ArrayList<>();
 		List<EntityDomain> requestList = service.listAll();
 		requestList.stream().forEach(e -> {
 			entitiesVo.add(vh.getEntityResponse(e));
 		});
 		return ResponseEntity.ok(entitiesVo);
-	}
-
-	private Facade getService(String entity) {
-		switch(entity) {
-			case ParametersUtils.STUDENT:
-				return this.studentService;
-				
-			default:
-				return this.messageService;
-		}
 	}
 }
