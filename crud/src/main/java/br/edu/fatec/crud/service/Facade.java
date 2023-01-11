@@ -8,11 +8,8 @@ import br.edu.fatec.crud.model.EntityDomain;
 import br.edu.fatec.crud.model.Message;
 import br.edu.fatec.crud.strategy.StrategyPattern;
 
-public abstract class Facade {
+public abstract class Facade implements IFacade{
 	protected Map<String, Map<String, List<StrategyPattern>>> rules;
-	
-	public abstract EntityDomain save(EntityDomain ed);
-	public abstract List<EntityDomain> listAll();
 	
 	protected EntityDomain getEntityFromRules(EntityDomain ed, String event) {
 		Map<String, List<StrategyPattern>> operationRules = this.rules.get(ed.getClass().getName());
