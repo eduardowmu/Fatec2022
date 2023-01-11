@@ -18,6 +18,9 @@ public class ParametersUtils {
 	public static final String ENTITY_PATH = "/{entity}";
 	public static final String SAVE_PATH = "/save";
 	public static final String LIST_PATH = "/list";
+	public static final String UPDATE_PATH = "/update";
+	public static final String DELETE_PATH = "/delete";
+	public static final String IDENTIFICATOR_PATH = "/{id}";
 	
 	//atributos estaticos de em geral
 	public static final String EMPTY = "";
@@ -30,6 +33,7 @@ public class ParametersUtils {
 	
 	//numeros
 	public static final String ZERO = "0";
+	public static final String ID = "id";
 	
 	//REGEX
 	public static final String REGEX_ESPECIAL_CHARACTER = "[^a-zA-Z]";

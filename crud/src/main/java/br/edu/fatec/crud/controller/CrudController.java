@@ -8,9 +8,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -67,5 +69,18 @@ public class CrudController {
 			entitiesVo.add(vh.getEntityResponse(e));
 		});
 		return ResponseEntity.ok(entitiesVo);
+	}
+	
+	@PutMapping(ParametersUtils.UPDATE_PATH)
+	public ResponseEntity<EntityVo> update(@PathVariable(ParametersUtils.ENTITY) String entity, 
+			@RequestBody EntityVo requestVo) {
+		/*TODO: implementar o update como se fosse o create porém com o objeto com ID*/
+		return null;
+	}
+	
+	@DeleteMapping(ParametersUtils.DELETE_PATH+ParametersUtils.IDENTIFICATOR_PATH)
+	public void delete(@PathVariable(ParametersUtils.ENTITY) String entity, 
+						@PathVariable(ParametersUtils.ID) String id) {
+		/*TODO: realizar o metodo de apagar através apenas do ID do objeto*/
 	}
 }

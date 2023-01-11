@@ -29,4 +29,14 @@ public class MessageService extends Facade {
 		}
 		return entities;
 	}
+
+	public EntityDomain update(EntityDomain ed) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void delete(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
 }
