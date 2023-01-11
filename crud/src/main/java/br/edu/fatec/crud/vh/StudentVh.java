@@ -53,11 +53,9 @@ public class StudentVh implements EntityVh {
 	}
 
 	private LocalDate getDate(String date) {
-		/*
 		int year = Integer.parseInt(date.substring(0, 4));
 		int month = Integer.parseInt(date.substring(5, 7));
-		int day = Integer.parseInt(date.substring(8));
-		*/
-		return LocalDate.parse(date);
+		int day = Integer.parseInt(date.substring(8,10));
+		return LocalDate.of(year, month, day);
 	}
 }
