@@ -30,6 +30,9 @@ import br.edu.fatec.crud.vo.EntityVo;
 @RestController
 @RequestMapping(value=ParametersUtils.ENTITY_PATH)
 public class CrudController {
+	/* Referências
+	 * https://docs.google.com/document/d/1gjDGnl4pFAj4RwPPUsFSBKlRUujtW3DYJkPM_OdJksQ/edit?usp=sharing
+	 * */
 	private final StudentService studentService;
 	private final MessageService messageService;
 	
